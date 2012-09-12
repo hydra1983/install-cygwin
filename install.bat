@@ -93,8 +93,8 @@ Rem -------------------------------------
 
   :env_win7
   
-  Set SET_X=%windir%\system32\setx.exe
-  Set SET_X_M=/M
+  Set SET_X=%windir%\system32\setx.exe /M
+  Set SET_X_M=
   GoTo env_end
 
   :env_end
