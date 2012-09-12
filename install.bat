@@ -76,10 +76,14 @@ Rem -------------------------------------
   Set LAST_CHAR=%PATH:~-1%
   Set SEMI_COMMA=;
   Set CYGWIN_HOME=%DEFAULT_ROOT_DIR:/=\%
+  Set USER_HOME=%CYGWIN_HOME%\home\%USERNAME%
   Set CYGWIN_HOME_BIN_PATH=%CYGWIN_HOME%\bin;
   
   Echo "SetX /M CYGWIN_HOME %CYGWIN_HOME%"
   SetX /M CYGWIN_HOME %CYGWIN_HOME%
+
+  Echo "SetX HOME %USER_HOME%"
+  SetX /M HOME %USER_HOME%
 
   SetLocal EnableDelayedExpansion
     If "%LAST_CHAR%"=="%SEMI_COMMA%" (
