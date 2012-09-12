@@ -79,21 +79,58 @@ Rem -------------------------------------
   Set USER_HOME=%CYGWIN_HOME%\home\%USERNAME%
   Set CYGWIN_HOME_BIN_PATH=%CYGWIN_HOME%\bin;
   
-  Echo "SetX /M CYGWIN_HOME %CYGWIN_HOME%"
-  SetX /M CYGWIN_HOME %CYGWIN_HOME%
+  Ver|Find "5.1" > nul
+  IF %ERRORLEVEL% == 0 GoTo env_xp
 
-  Echo "SetX HOME %USER_HOME%"
-  SetX /M HOME %USER_HOME%
+  Ver|Find "6.1" > nul
+  IF %ERRORLEVEL% == 0 GoTo env_win7
+  
+  :env_xp
+
+  ECHO [INFO] Set environment variables for XP
+  Set SET_X=%CUR_DIR%/setx.exe
+
+  Echo "%SET_X% -m CYGWIN_HOME %CYGWIN_HOME%"
+  %SET_X% -m CYGWIN_HOME %CYGWIN_HOME%
+
+  Echo "%SET_X% HOME %USER_HOME%"
+  %SET_X% HOME %USER_HOME%
 
   SetLocal EnableDelayedExpansion
     If "%LAST_CHAR%"=="%SEMI_COMMA%" (
-      Echo "SetX /M PATH !PATH:%CYGWIN_HOME_BIN_PATH%=!%CYGWIN_HOME_BIN_PATH%"
-      SetX /M PATH "!PATH:%CYGWIN_HOME_BIN_PATH%=!%CYGWIN_HOME_BIN_PATH%"
+      Echo "%SET_X% -m PATH !PATH:%CYGWIN_HOME_BIN_PATH%=!%CYGWIN_HOME_BIN_PATH%"
+      %SET_X% -m PATH "!PATH:%CYGWIN_HOME_BIN_PATH%=!%CYGWIN_HOME_BIN_PATH%"
     ) Else (
-      Echo "SetX /M PATH !PATH:%CYGWIN_HOME_BIN_PATH%=!;%CYGWIN_HOME_BIN_PATH%"
-      SetX /M PATH "!PATH:%CYGWIN_HOME_BIN_PATH%=!;%CYGWIN_HOME_BIN_PATH%"
+      Echo "%SET_X% -m PATH !PATH:%CYGWIN_HOME_BIN_PATH%=!;%CYGWIN_HOME_BIN_PATH%"
+      %SET_X% -m PATH "!PATH:%CYGWIN_HOME_BIN_PATH%=!;%CYGWIN_HOME_BIN_PATH%"
     )   
   EndLocal
+
+  GoTo env_end
+
+  :env_win7
+  
+  ECHO [INFO] Set environment variables for WIN_7
+
+  Set SET_X=%windir%\system32\setx.exe
+  Echo %SET_X% /M CYGWIN_HOME %CYGWIN_HOME%"
+  %SET_X% /M CYGWIN_HOME %CYGWIN_HOME%
+
+  Echo %SET_X% HOME %USER_HOME%
+  %SET_X% HOME %USER_HOME%
+
+  SetLocal EnableDelayedExpansion
+    If "%LAST_CHAR%"=="%SEMI_COMMA%" (
+      Echo %SET_X% /M PATH !PATH:%CYGWIN_HOME_BIN_PATH%=!%CYGWIN_HOME_BIN_PATH%
+      %SET_X% /M PATH "!PATH:%CYGWIN_HOME_BIN_PATH%=!%CYGWIN_HOME_BIN_PATH%"
+    ) Else (
+      Echo %SET_X% /M PATH !PATH:%CYGWIN_HOME_BIN_PATH%=!;%CYGWIN_HOME_BIN_PATH%
+      %SET_X% /M PATH "!PATH:%CYGWIN_HOME_BIN_PATH%=!;%CYGWIN_HOME_BIN_PATH%"
+    )   
+  EndLocal
+
+  GoTo env_end
+  :env_end
 
 Rem -------------------------------------
 Rem Custom cygwin
