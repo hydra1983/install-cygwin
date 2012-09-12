@@ -60,6 +60,7 @@ Rem -------------------------------------
   Set PACKAGES=%PACKAGES%,chere
   Set PACKAGES=%PACKAGES%,vim
   Set PACKAGES=%PACKAGES%,openssh
+  Set PACKAGES=%PACKAGES%,ca-certificates
 
   Rem Do the actual cygwin install
   Echo [INFO] "%LOCAL_SETUP_FILE%" -q -n -D -L %SITE% %LOCAL_DIR% %ROOT_DIR% %PACKAGES%
