@@ -143,7 +143,7 @@ Rem Add %START_BASH_HERE%
 Rem -------------------------------------
 
   Echo [INFO] Add %START_BASH_HERE% to contex menu
-  %BASH% --login -i -c "/usr/bin/chere -if -t mintty -s bash -e %START_BASH_HERE%"
+  %BASH% --login -i -c "/usr/bin/chere -if -t mintty -s bash -e %START_BASH_HERE% -o '-w max'"
 
 :end
 
