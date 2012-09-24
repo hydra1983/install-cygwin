@@ -105,6 +105,8 @@ Rem -------------------------------------
     )   
   EndLocal
 
+  %SET_X% CYGWIN nodosfilewarning -m
+
   GoTo env_end
 
   :env_win7
@@ -126,6 +128,8 @@ Rem -------------------------------------
       %SET_X% /M PATH "!PATH:%CYGWIN_HOME_BIN_PATH%=!;%CYGWIN_HOME_BIN_PATH%"
     )   
   EndLocal
+
+  %SET_X% /M CYGWIN nodosfilewarning
 
   GoTo env_end
 
